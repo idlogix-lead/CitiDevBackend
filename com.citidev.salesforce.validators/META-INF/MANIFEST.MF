@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Validators
+Bundle-SymbolicName: com.citidev.salesforce.validators;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: org.adempiere.base;bundle-version="11.0.0",
+ org.adempiere.plugin.utils;bundle-version="11.0.0",
+ com.citidev.salesforce;bundle-version="0.1.0"
+Service-Component: OSGI-INF/SF_ModelValidator.xml
+Bundle-Vendor: CITIDEV
+Automatic-Module-Name: com.citidev.salesforce.validators
+Bundle-RequiredExecutionEnvironment: JavaSE-17

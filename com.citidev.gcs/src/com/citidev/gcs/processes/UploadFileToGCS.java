@@ -26,25 +26,25 @@ public class UploadFileToGCS extends SvrProcess {
 
     @Override
     protected void prepare() {
-//        for (ProcessInfoParameter param : getParameter()) {
-//            if ("AD_Table_ID".equalsIgnoreCase(param.getParameterName())) {
-//                mTableID = param.getParameterAsInt();
-//            } 
-//            else if ("Record_ID".equalsIgnoreCase(param.getParameterName())) {
-//            	mRecordID = param.getParameterAsInt();
-//            }
-//            else {
-//                MProcessPara.validateUnknownParameter(getProcessInfo().getAD_Process_ID(), param);
-//            }
-//        }
+        for (ProcessInfoParameter param : getParameter()) {
+            if ("AD_Table_ID".equalsIgnoreCase(param.getParameterName())) {
+                mTableID = param.getParameterAsInt();
+            } 
+            else if ("Record_ID".equalsIgnoreCase(param.getParameterName())) {
+            	mRecordID = param.getParameterAsInt();
+            }
+            else {
+                MProcessPara.validateUnknownParameter(getProcessInfo().getAD_Process_ID(), param);
+            }
+        }
     }
 
     @Override
     protected String doIt() throws Exception {
 
-    	if(getTable_ID() > 0 && getRecord_ID() > 0) {
+    	if(mTableID > 0 && mRecordID > 0) {
 	    	GCSUploaderService service = new GCSUploaderService();
-	    	service.syncAttachment(getTable_ID(), getRecord_ID());
+	    	service.syncAttachment(mTableID, mRecordID);
     	}
     	return null;
     }

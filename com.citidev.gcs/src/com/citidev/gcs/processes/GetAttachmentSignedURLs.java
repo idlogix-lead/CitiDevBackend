@@ -119,26 +119,36 @@ public class GetAttachmentSignedURLs extends SvrProcess {
 
         return mapper.writeValueAsString(root);
     }
-
-    private void loadStorage() throws Exception {
-    	if (this.storage == null) {
+    
+    private void loadStorage() {
+        if (this.storage == null) {
             try {
-                Bundle bundle = FrameworkUtil.getBundle(this.getClass());
-                URL keyURL = bundle.getEntry("credentials/cdsuperapp-d7c63fd59782.json");
-
-                if (keyURL == null)
-                    throw new AdempiereException("Credential file not found inside bundle!");
-
-                InputStream keyStream = keyURL.openStream();
-                storage = StorageOptions.newBuilder()
-                        .setCredentials(ServiceAccountCredentials.fromStream(keyStream))
-                        .build()
-                        .getService();
+                storage = StorageOptions.getDefaultInstance().getService();
             } catch (Exception e) {
                 throw new AdempiereException("Error initializing GCS storage: " + e.getMessage(), e);
             }
         }
     }
+
+//    private void loadStorage() throws Exception {
+//    	if (this.storage == null) {
+//            try {
+//                Bundle bundle = FrameworkUtil.getBundle(this.getClass());
+//                URL keyURL = bundle.getEntry("credentials/cdsuperapp-d7c63fd59782.json");
+//
+//                if (keyURL == null)
+//                    throw new AdempiereException("Credential file not found inside bundle!");
+//
+//                InputStream keyStream = keyURL.openStream();
+//                storage = StorageOptions.newBuilder()
+//                        .setCredentials(ServiceAccountCredentials.fromStream(keyStream))
+//                        .build()
+//                        .getService();
+//            } catch (Exception e) {
+//                throw new AdempiereException("Error initializing GCS storage: " + e.getMessage(), e);
+//            }
+//        }
+//    }
 
     private String generateSignedUrl(CDAttachmentEntry entry) {
 
